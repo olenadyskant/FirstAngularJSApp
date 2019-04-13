@@ -1,0 +1,1 @@
+SET PATH=%PATH%;C:\Users\oadt\Desktop\NewFolder\JavaScript\node-v10.15.1-win-x64\node-v10.15.1-win-x64

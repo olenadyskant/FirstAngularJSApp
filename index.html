@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="userInterface">
+
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="CSS/bootstrap.css">
+  <link rel="stylesheet" href="CSS/index.css"></link>
+</head>
+
+<body ng-cloak>
+
+  <h2>Complex table</h2>
+
+  <div class="main-container" ng-controller="UserContentController">
+
+    <form class="form-inline" name="newUserForm">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div for="inp-for-name" class="input-group-text">Name</div>
+        </div>
+        <input id="inp-for-name" type="text" required ng-model="newUserData.name" placeholder="Username"
+          class="form-control mr-sm-2"></input>
+      </div>
+
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div for="inp-for-age" class="input-group-text">Age</div>
+        </div>
+        <input id="inp-for-age" type="number" class="form-control mr-sm-2" required ng-model="newUserData.age"
+          placeholder="18"></input>
+      </div>
+
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div for="inp-for-gender" class="input-group-text">Gender</div>
+        </div>
+        <select id="inp-for-gender" class="custom-select mr-sm-2" required ng-model="newUserData.gender">
+          <option>Choose ...</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+        </select>
+      </div>
+      <div class="add-new-user">
+        <button type="button" id="add-new-row" class="btn btn-primary mb-2"
+          ng-disabled="newUserForm.$invalid"  ng-click="newUser(newUserData)">Add</button>
+      </div>
+    </form>
+
+    <div class="table-container">
+      
+        <table id="myTable" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Age</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Is Adult</th>
+              <th scope="col">Edit Content</th>
+              <th scope="col">Remove</th>
+
+            </tr>
+          </thead>
+          <tbody id='complex_body'>
+            
+            <tr ng-repeat="user in userData"
+              ng-class="user.age >= 18 ? 'table-success' : 'table-danger'">
+              <th scope="row">{{$index + 1}}</th>
+              <form name="users-container" method="put">
+              <td>
+                <span ng-show="edit != true">{{user.name}}</span>
+                <span ng-show="edit">
+                  <input type="text" style="width: 60%;" class="form-control" required ng-model="user.name">
+                </span>
+              </td>
+              <td>
+                <span ng-show="edit != true">{{user.age}}</span>
+                <span ng-show="edit">
+                  <input type="number" style="width: 60%;" class="form-control" required ng-model="user.age"/>
+                </span>
+              </td>
+              <td>
+                <span ng-show="edit != true">
+                  <i class="fas fa-female" ng-show="user.gender==='female'"></i>
+                  <i class="fas fa-male" ng-show="user.gender==='male'"></i>
+                </span>
+                <span ng-show="edit">
+                  <select style="width: 60%;" id="inp-for-gender" class="custom-select mr-sm-2"
+                    required ng-model="user.gender">
+                    <option>Choose ...</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                  </select>
+                </span>
+              </td>
+              <td>
+                <span ng-show="edit != true">
+                  <i class="fas fa-user-check" ng-show="user.age >= 18"></i>
+                  <i class="fas fa-user-slash" ng-show="user.age <= 18"></i>
+                  </span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-light" ng-show="edit != true && editing != true"
+                  ng-click="edit=true ; modifyUser() ">Edit</button>
+                <button type="button" class="btn btn-light ml-4" ng-show="edit"  ng-click="edit != true; saveNewData(user, $index)">Save</button>
+                <button type="button" class="btn btn-light ml-4" ng-show="edit" ng-click="resetUser()">Cancel</button>
+              </td>
+              <td>
+                <div><button type="button" class="btn btn-light ml-4" ng-click="deleteUserData(user, $index)">Remove<i
+                      class="fas fa-trash-alt ml-2"></i></button></div>
+              </td>
+            </form>
+            </tr>
+         
+          </tbody>
+
+        </table>
+      
+    </div>
+  </div>
+  
+  <script data-main="scripts/config" src="node_modules/requirejs/require.js"></script>
+
+
+</body>
+
+</html>

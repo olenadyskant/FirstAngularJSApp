@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "name": "Ann",
+      "age": "16",
+      "gender": "female",
+      "id": 4
+    },
+    {
+      "name": "Olena",
+      "age": "27",
+      "gender": "female",
+      "id": 5
+    },
+    {
+      "name": "Volodymyr",
+      "age": "25",
+      "gender": "male",
+      "id": 6
+    },
+    {
+      "name": "Brie",
+      "age": "17",
+      "gender": "female",
+      "id": 7
+    },
+    {
+      "name": "Marie",
+      "age": "22",
+      "gender": "female",
+      "id": 8
+    },
+    {
+      "name": "Alan",
+      "age": "26",
+      "gender": "male",
+      "id": 9
+    }
+  ]
+}
