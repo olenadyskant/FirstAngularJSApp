@@ -1,4 +1,4 @@
-define(['app'],function(userInterface){
+define(['app'], function(userInterface){
   'use strict'
   return userInterface.factory('EditUser', 
 function ($http){

@@ -1,0 +1,32 @@
+<form class="form-inline" name="newUserForm">
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <div for="inp-for-name" class="input-group-text">Name</div>
+    </div>
+    <input id="inp-for-name" type="text" required ng-model="newUser.name" placeholder="Username"
+      class="form-control mr-sm-2"></input>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <div for="inp-for-age" class="input-group-text">Age</div>
+    </div>
+    <input id="inp-for-age" type="number" class="form-control mr-sm-2" required ng-model="newUser.age"
+      placeholder="18"></input>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group-prepend">
+      <div for="inp-for-gender" class="input-group-text">Gender</div>
+    </div>
+    <select id="inp-for-gender" class="custom-select mr-sm-2" required ng-model="newUser.gender">
+      <option>Choose ...</option>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+    </select>
+  </div>
+  <div class="add-new-user">
+    <button type="button" id="add-new-row" class="btn btn-primary mb-2" ng-disabled="newUserForm.$invalid"
+      ng-click="$ctrl.add({$event: newUser})">Add</button>
+  </div>
+</form>
