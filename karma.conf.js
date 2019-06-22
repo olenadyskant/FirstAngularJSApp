@@ -7,27 +7,28 @@ module.exports = function (config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine', 'requirejs'],
 
-
     // list of files / patterns to load in the browser
     files: [
 
+      // { pattern: 'node_modules/angular/**/*.js', included: false },
+      // { pattern: 'node_modules/angular-mocks/**/*.js', included: false },
+      { pattern: 'scripts/*.js', included: false },
       { pattern: 'scripts/**/*.js', included: false },
-      { pattern: 'test/**/*Spec.js', included: false },
-      { pattern: 'node_modules/angular/**/*.js', included: false },
-      { pattern: 'node_modules/angular-mocks/**/*.js', included: false },
-
+      { pattern: 'test/*.js', included: false },
+      { pattern: 'test/*Spec.js', included: false },
+      { pattern: 'test/**/*.js', included: false },
+      
       'test/test-main.js',
     ],
 
 
     // list of files / patterns to exclude
     exclude: [
-      'scripts/config.js'
+      // 'scripts/config.js'
     ],
 
 
@@ -40,15 +41,15 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'htmlDetailed'],
+    reporters: ['progress'],
 
     // notify karma of the available plugins
     plugins: [
-      
+
       'karma-jasmine',
+      'karma-requirejs',
       'karma-chrome-launcher',
-      'karma-html-detailed-reporter',
-      'karma-requirejs'
+      //'karma-html-detailed-reporter',
     ],
 
     // web server port
