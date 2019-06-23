@@ -1,5 +1,5 @@
-define(['app', 'angular-mocks'], function () {
-    // describe('UserContentController', function () {
+define(['app'], function (userInterface) {
+    describe('UserContentController', function () {
 
     //     var $controller, $httpBackend, $scope, users;
 
@@ -34,4 +34,5 @@ define(['app', 'angular-mocks'], function () {
             expect(true).toBe(true);
         })
     })
+})
 })

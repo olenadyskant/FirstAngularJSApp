@@ -14,21 +14,20 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
 
-      // { pattern: 'node_modules/angular/**/*.js', included: false },
-      // { pattern: 'node_modules/angular-mocks/**/*.js', included: false },
-      { pattern: 'scripts/*.js', included: false },
+      //{ pattern: '/node_modules/bootstrap/dist/js/bootstrap.min', included: true },
+      { pattern: 'node_modules/angular/**/*.js', included: false },
+      { pattern: 'node_modules/angular-mocks/**/*.js', included: false },
       { pattern: 'scripts/**/*.js', included: false },
-      { pattern: 'test/*.js', included: false },
-      { pattern: 'test/*Spec.js', included: false },
-      { pattern: 'test/**/*.js', included: false },
-      
-      'test/test-main.js',
+      { pattern: 'test/**/*Spec.js', included: false },
+
+      'test/test-main.js'
+
     ],
 
 
     // list of files / patterns to exclude
     exclude: [
-      // 'scripts/config.js'
+      'scripts/config.js'
     ],
 
 
