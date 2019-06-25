@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"live-server\" \"json-server db.json\"",
-    "test": "karma start"
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
     "concurrently": "4.1.0",
     "jquery": "^3.4.0",
     "json-server": "0.14.2",
-    "karma-cli": "^2.0.0",
     "live-server": "1.2.1",
     "popper.js": "1.14.7"
   },
@@ -29,8 +28,10 @@
     "angular-mocks": "^1.7.8",
     "jasmine": "^3.4.0",
     "jasmine-core": "^3.4.0",
+    "jasmine-jquery": "^2.1.1",
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^2.0.0",
     "karma-html-detailed-reporter": "^2.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-requirejs": "^1.1.0",
