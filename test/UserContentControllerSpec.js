@@ -151,7 +151,7 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
 
                 it('updates single user/row data', function(){
                 
-                    //$httpBackend.when("PUT", "http://localhost:3000/users/").respond(200);
+                    $httpBackend.when("PUT", "http://localhost:3000/users/").respond(200);
                     $scope.editing = false;
                     $scope.$apply();
                     expect($scope.editing).toBeFalsy();
@@ -163,7 +163,7 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                         expect(ctrl.users[newUpdatedUser]).toEqual(newUpdatedUser);
                     });
                     
-                    //$httpBackend.flush();
+                    $httpBackend.flush();
 
                 })
             })
