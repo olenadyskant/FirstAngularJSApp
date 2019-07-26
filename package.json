@@ -32,8 +32,8 @@
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "^2.0.0",
-    "karma-html-detailed-reporter": "^2.1.0",
     "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
     "karma-requirejs": "^1.1.0",
     "requirejs": "^2.3.6"
   }

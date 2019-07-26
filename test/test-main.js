@@ -1,6 +1,5 @@
 var allTestFiles = [];
 
-var allTestFiles = [];
 var TEST_REGEXP = /(Spec|Test)\.js$/i;
 for (var file in window.__karma__.files) {
   if (TEST_REGEXP.test(file)) allTestFiles.push(file);
