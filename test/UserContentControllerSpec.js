@@ -16,16 +16,21 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 $httpBackend,
                 ctrl,
                 AddNewUser,
-                EditUser;
+                EditUser,
+                $window,
+                DeleteUser;
 
-            beforeEach(inject(function (_$rootScope_, _$controller_, _$httpBackend_, _$http_, _AddNewUser_, _EditUser_) {
+            beforeEach(inject(function (_$rootScope_, _$controller_, _$httpBackend_, _$http_, _AddNewUser_, _EditUser_, _$window_, _DeleteUser_) {
                 $scope = _$rootScope_.$new();
                 $controller = _$controller_;
                 $httpBackend = _$httpBackend_;
                 $http = _$http_;
                 AddNewUser = _AddNewUser_;
                 EditUser = _EditUser_;
+                $window = _$window_;
+                DeleteUser = _DeleteUser_
 
+                
                 ctrl = $controller('UserContentController', {
                     $scope: $scope,
                     $http: $http
@@ -132,7 +137,7 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                         gender: 'gender'
                     }
 
-                    $httpBackend.when("PUT", "http://localhost:3000/users/" + updatedUser.id ).respond(200, [updatedUser]);
+                    $httpBackend.when("PUT", "http://localhost:3000/users/" + updatedUser.id).respond(200, [updatedUser]);
                     EditUser.modifyUserData(updatedUser).then(function (data) {
                         responseData = data;
                     })
@@ -142,31 +147,75 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 })
             })
 
-            describe('$scope.saveNewData uses PUT response', function(){
-               
+            describe('$scope.saveNewData uses PUT response', function () {
+
                 beforeEach(function () {
                     $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
                 });
 
-                it('updates single user/row data', function(){
-                
-                    $httpBackend.when("PUT", "http://localhost:3000/users/").respond(200);
+                it('updates single user/row data', function () {
+
+                    $httpBackend.when("PUT", "http://localhost:3000/users/1").respond(200);
                     $scope.editing = false;
                     $scope.$apply();
-                    expect($scope.editing).toBeFalsy();
 
-                    var newUpdatedUser = {};
+                    var newUpdatedUser = { id: "1" };
                     EditUser.modifyUserData(newUpdatedUser).then(function (data) {
                         newUpdatedUser = data;
+                        expect($scope.editing).toBeFalsy();
                         expect(ctrl.users).toBeDefined();
                         expect(ctrl.users[newUpdatedUser]).toEqual(newUpdatedUser);
                     });
-                    
+
                     $httpBackend.flush();
 
                 })
             })
+
+            describe("$scope.resetUser", function () {
+            
+                beforeEach(function () {
+                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
+                    $httpBackend.flush();
+                });
+
+            
+
+                it('canceles user editing', function () {
+                    
+                    $window = {location:{reload:function(){}}};
+                    spyOn($window.location, 'reload');
+                    expect($window.location.reload).not.toHaveBeenCalled();
+                    //expect($window.location.reload.calls.count()).toEqual(0);
+
+                })
+            })
+
+            // describe("DeleteUser calls deleteTheRow", function(){
+            //     beforeEach(function () {
+            //         $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
+            //         $httpBackend.flush();
+            //     });
+
+            //     it("should mock a promise", function(){
+
+            //         var responseData,
+            //         deletedUser;
+                    
+            //         deletedUser = {
+            //             id: 123
+            //         }
+
+            //         $httpBackend.when("DELETE", "http://localhost:3000/users/" + deletedUser.id).respond(200);
+            //         DeleteUser.deleteTheRow(deletedUser).then(function (data) {
+            //             responseData = data
+            //         })
+            //         $httpBackend.flush();
+            //         expect(responseData).toBe(undefined);
+            //     })
+
+            // })
         })
 
     });
