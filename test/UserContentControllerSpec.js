@@ -2,12 +2,6 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
 
     function (angular, userInterface) {
 
-        // describe('test', function () {
-        //     it('should pass', function () {
-        //         expect(true).toBe(true);
-        //     })
-        // });
-
         describe('UserContentController', function () {
 
             beforeEach(module('userInterface'));
@@ -28,9 +22,8 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 AddNewUser = _AddNewUser_;
                 EditUser = _EditUser_;
                 $window = _$window_;
-                DeleteUser = _DeleteUser_
+                DeleteUser = _DeleteUser_;
 
-                
                 ctrl = $controller('UserContentController', {
                     $scope: $scope,
                     $http: $http
@@ -157,10 +150,11 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 it('updates single user/row data', function () {
 
                     $httpBackend.when("PUT", "http://localhost:3000/users/1").respond(200);
+
                     $scope.editing = false;
                     $scope.$apply();
 
-                    var newUpdatedUser = { id: "1" };
+                    var newUpdatedUser = { id: '1' };
                     EditUser.modifyUserData(newUpdatedUser).then(function (data) {
                         newUpdatedUser = data;
                         expect($scope.editing).toBeFalsy();
@@ -169,22 +163,19 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                     });
 
                     $httpBackend.flush();
-
                 })
             })
 
             describe("$scope.resetUser", function () {
-            
+
                 beforeEach(function () {
                     $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
                     $httpBackend.flush();
                 });
 
-            
-
                 it('canceles user editing', function () {
-                    
-                    $window = {location:{reload:function(){}}};
+
+                    $window = { location: { reload: function () { } } };
                     spyOn($window.location, 'reload');
                     expect($window.location.reload).not.toHaveBeenCalled();
                     //expect($window.location.reload.calls.count()).toEqual(0);
@@ -192,30 +183,60 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 })
             })
 
-            // describe("DeleteUser calls deleteTheRow", function(){
-            //     beforeEach(function () {
-            //         $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
-            //         $httpBackend.flush();
-            //     });
+            describe("DeleteUser calls deleteTheRow", function () {
 
-            //     it("should mock a promise", function(){
+                beforeEach(function () {
+                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
+                    $httpBackend.flush();
+                });
 
-            //         var responseData,
-            //         deletedUser;
-                    
-            //         deletedUser = {
-            //             id: 123
-            //         }
+                it("should mock a promise", function () {
 
-            //         $httpBackend.when("DELETE", "http://localhost:3000/users/" + deletedUser.id).respond(200);
-            //         DeleteUser.deleteTheRow(deletedUser).then(function (data) {
-            //             responseData = data
-            //         })
-            //         $httpBackend.flush();
-            //         expect(responseData).toBe(undefined);
-            //     })
+                    var responseData,
+                        deletedUser;
 
-            // })
+                    deletedUser = {
+                        id: 123,
+                        name: 'name',
+                        age: 123,
+                        gender: 'gender'
+                    }
+
+                    $httpBackend.when("DELETE", "http://localhost:3000/users/" + deletedUser.id).respond(200, []);
+                    DeleteUser.deleteTheRow(deletedUser).then(function (data) {
+                        responseData = data;
+                        //responseData = [];
+                    })
+                    $httpBackend.flush();
+                    //expect(responseData).toEqual([]);
+                    expect(responseData).toEqual(undefined);
+                })
+
+            })
+
+            describe('$scope.deleteUserData uses DELETE response', function () {
+
+                beforeEach(function () {
+                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
+                    $httpBackend.flush();
+                });
+
+                it('deletes single user/row data', function () {
+
+                    $httpBackend.when("DELETE", "http://localhost:3000/users/1").respond(200);
+
+                    var deletedUser = { id: '1' };
+                    DeleteUser.deleteTheRow(deletedUser).then(function (data) {
+                        deletedUser = data;
+                        expect(ctrl.users).toBeDefined();
+                        expect(ctrl.users.splice[deletedUser]).toEqual(deletedUser);
+                    });
+
+                    $httpBackend.flush();
+                })
+            })
+
+
         })
 
     });
