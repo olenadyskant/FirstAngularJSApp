@@ -35,6 +35,7 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "karma-requirejs": "^1.1.0",
+    "protractor": "^5.4.2",
     "requirejs": "^2.3.6"
   }
 }

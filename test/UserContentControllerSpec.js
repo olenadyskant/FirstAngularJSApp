@@ -9,9 +9,9 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
             var $scope,
                 $httpBackend,
                 ctrl,
+                $window,
                 AddNewUser,
                 EditUser,
-                $window,
                 DeleteUser;
 
             beforeEach(inject(function (_$rootScope_, _$controller_, _$httpBackend_, _$http_, _AddNewUser_, _EditUser_, _$window_, _DeleteUser_) {
@@ -19,9 +19,9 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 $controller = _$controller_;
                 $httpBackend = _$httpBackend_;
                 $http = _$http_;
+                $window = _$window_;
                 AddNewUser = _AddNewUser_;
                 EditUser = _EditUser_;
-                $window = _$window_;
                 DeleteUser = _DeleteUser_;
 
                 ctrl = $controller('UserContentController', {
@@ -36,7 +36,7 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
             });
 
 
-            describe('$scope.userData', function () {
+            describe('$scope.userData is called', function () {
 
                 it('loads the users list and updates the table data', function () {
                     var returnData = [];
@@ -46,42 +46,15 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 });
             });
 
-            describe('AddNewUser calls postNewRow', function () {
 
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
-                    $httpBackend.flush();
-                });
-
-                it('should mock a promise', function () {
-
-                    var responseData,
-                        postData;
-
-                    postData = {
-                        name: 'name',
-                        age: 123,
-                        gender: 'gender'
-                    }
-
-                    $httpBackend.when("POST", "http://localhost:3000/users").respond(200, [postData]);
-                    AddNewUser.postNewRow(postData).then(function (data) {
-                        responseData = data;
-                    })
-                    $httpBackend.flush();
-                    expect(responseData).toEqual([postData]);
-                })
-
-            });
-
-            describe('$scope.addUser uses POST response', function () {
+            describe('$scope.addUser is called', function () {
 
                 beforeEach(function () {
                     $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
-                });
+                })
 
-                it('updates the table with new user data', function () {
+                it('adds new user data as the last row', function () {
 
                     $httpBackend.when("POST", "http://localhost:3000/users").respond(200);
                     var newUserData = {};
@@ -97,12 +70,12 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 })
             });
 
-            describe('$scope.modifyUser', function () {
+            describe('$scope.modifyUser is called', function () {
 
                 beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
+                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
-                });
+                })
 
                 it('starts editing mode', function () {
                     $scope.editing = true;
@@ -111,41 +84,13 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 })
             })
 
-            describe('EditUser calls modifyUserData', function () {
 
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
-                    $httpBackend.flush();
-                });
-
-                it('should mock a promise', function () {
-
-                    var responseData,
-                        updatedUser;
-
-                    updatedUser = {
-                        id: 123,
-                        name: 'name',
-                        age: 123,
-                        gender: 'gender'
-                    }
-
-                    $httpBackend.when("PUT", "http://localhost:3000/users/" + updatedUser.id).respond(200, [updatedUser]);
-                    EditUser.modifyUserData(updatedUser).then(function (data) {
-                        responseData = data;
-                    })
-                    $httpBackend.flush();
-                    expect(responseData).toEqual([updatedUser]);
-
-                })
-            })
-
-            describe('$scope.saveNewData uses PUT response', function () {
+            describe('$scope.saveNewData is called', function () {
 
                 beforeEach(function () {
                     $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
-                });
+                })
 
                 it('updates single user/row data', function () {
 
@@ -166,12 +111,12 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 })
             })
 
-            describe("$scope.resetUser", function () {
+            describe("$scope.resetUser is called", function () {
 
                 beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
+                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
-                });
+                })
 
                 it('canceles user editing', function () {
 
@@ -183,43 +128,12 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 })
             })
 
-            describe("DeleteUser calls deleteTheRow", function () {
-
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200);
-                    $httpBackend.flush();
-                });
-
-                it("should mock a promise", function () {
-
-                    var responseData,
-                        deletedUser;
-
-                    deletedUser = {
-                        id: 123,
-                        name: 'name',
-                        age: 123,
-                        gender: 'gender'
-                    }
-
-                    $httpBackend.when("DELETE", "http://localhost:3000/users/" + deletedUser.id).respond(200, []);
-                    DeleteUser.deleteTheRow(deletedUser).then(function (data) {
-                        responseData = data;
-                        //responseData = [];
-                    })
-                    $httpBackend.flush();
-                    //expect(responseData).toEqual([]);
-                    expect(responseData).toEqual(undefined);
-                })
-
-            })
-
-            describe('$scope.deleteUserData uses DELETE response', function () {
+            describe('$scope.deleteUserData is called', function () {
 
                 beforeEach(function () {
                     $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
-                });
+                })
 
                 it('deletes single user/row data', function () {
 
@@ -235,7 +149,6 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                     $httpBackend.flush();
                 })
             })
-
 
         })
 
