@@ -44,21 +44,21 @@
                 <td align="center">
                     <span ng-show="edit != true">
                         <i class="fas fa-user-check" ng-show="user.age >= 18"></i>
-                        <i class="fas fa-user-slash" ng-show="user.age <= 18"></i>
+                        <i class="fas fa-user-slash" ng-show="user.age < 18"></i>
                     </span>
                 </td>
                 <td>
                     <button type="button" class="btn btn-light" ng-show="edit != true && editing != true"
                         ng-click="edit=true ; modifyUser() ">Edit</button>
                     <button type="button" class="btn btn-light ml-4" ng-show="edit"
-                        ng-click="edit != true; $ctrl.save({$event:user}, $index)">Save</button>
+                        ng-click="edit=false; $ctrl.save({$event:user}, $index)">Save</button>
                     <button type="button" class="btn btn-light ml-4" ng-show="edit"
-                        ng-click="$ctrl.cancel()">Cancel</button>
+                        ng-click="edit=false">Cancel</button>
                 </td>
                 <td>
                     <div>
                         <button type="button" class="btn btn-light ml-4"
-                            ng-click="$ctrl.remove({$event:user}, $index)">Remove<i
+                            ng-click="$ctrl.remove({$event:user});">Remove<i
                                 class="fas fa-trash-alt ml-2"></i></button>
                     </div>
                 </td>

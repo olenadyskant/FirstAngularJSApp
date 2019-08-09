@@ -1,4 +1,4 @@
-define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './DeleteUserFactory', './userContentComponent', './newUserDataComponent'], function (userInterface) {
+define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './DeleteUserFactory', '../components/js/userContentComponent', '../components/js/newUserDataComponent'], function (userInterface) {
     'use strict';
     return userInterface.controller('UserContentController', ['$scope', '$http', '$log', '$window', 'AddNewUser', 'EditUser', 'DeleteUser',
         function UserContentController($scope, $http, $log, $window, AddNewUser, EditUser, DeleteUser) {
@@ -18,13 +18,15 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                 var myDataPromise = AddNewUser.postNewRow(newUser);
                 myDataPromise.then(function (response) {
                     ctrl.users.push(response);
-                    $scope.newUser = {};
+                    // $scope.newUser = {};
                 },
                     function (response) {
                         $log.warn(response);
                     });
 
             };
+
+            $scope.editing = false;
 
             $scope.modifyUser = function () {
                 $scope.editing = true;
@@ -42,14 +44,14 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                         });
             };
 
+            // $scope.resetUser = function () {
+            //     $window.location.reload();
+            // }
 
-            $scope.resetUser = function () {
-                $window.location.reload();
-            }
-
-            $scope.deleteUserData = function (user, $index) {
+            $scope.deleteUserData = function (user) {
+                var index = ctrl.users.indexOf(user);
                 DeleteUser.deleteTheRow(user);
-                ctrl.users.splice($index, 1);
+                ctrl.users.splice(index, 1);
             }
         }])
 })

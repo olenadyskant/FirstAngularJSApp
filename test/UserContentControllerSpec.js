@@ -14,15 +14,15 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 EditUser,
                 DeleteUser;
 
-            beforeEach(inject(function (_$rootScope_, _$controller_, _$httpBackend_, _$http_, _AddNewUser_, _EditUser_, _$window_, _DeleteUser_) {
+            beforeEach(inject(function (_$rootScope_, _$controller_, _$httpBackend_, _$http_, _AddNewUser_, _EditUser_, _DeleteUser_, _$window_) {
                 $scope = _$rootScope_.$new();
                 $controller = _$controller_;
                 $httpBackend = _$httpBackend_;
                 $http = _$http_;
-                $window = _$window_;
                 AddNewUser = _AddNewUser_;
                 EditUser = _EditUser_;
                 DeleteUser = _DeleteUser_;
+                $window = _$window_;
 
                 ctrl = $controller('UserContentController', {
                     $scope: $scope,
@@ -36,7 +36,7 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
             });
 
 
-            describe('$scope.userData is called', function () {
+            describe('$scope.userData loads the table of users', function () {
 
                 it('loads the users list and updates the table data', function () {
                     var returnData = [];
@@ -46,108 +46,101 @@ define(['angular', 'UserContentController', 'angularMocks', 'jquery'],
                 });
             });
 
-
-            describe('$scope.addUser is called', function () {
-
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
-                    $httpBackend.flush();
-                })
-
-                it('adds new user data as the last row', function () {
-
-                    $httpBackend.when("POST", "http://localhost:3000/users").respond(200);
-                    var newUserData = {};
-                    var promise = AddNewUser.postNewRow(newUserData);
-
-                    promise.then(function (value) {
-                        newUserData = value;
-                        expect(ctrl.users).toBeDefined();
-                        expect(ctrl.users.lastChild).toEqual(newUserData);
-                    });
-                    $httpBackend.flush();
-
-                })
-            });
-
-            describe('$scope.modifyUser is called', function () {
+            describe('specs are using beforeEch', function () {
 
                 beforeEach(function () {
                     $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
                     $httpBackend.flush();
                 })
 
-                it('starts editing mode', function () {
-                    $scope.editing = true;
-                    $scope.$apply();
-                    expect($scope.editing).toBeTruthy();
-                })
-            })
+                describe('$scope.addUser is called', function () {
 
+                    it('adds new user data as the last row', function (done) {
 
-            describe('$scope.saveNewData is called', function () {
+                        var newUserData = {
+                            name: 'Name',
+                            age: 123,
+                            gender: 'Gender'
+                        };
+                        var addUserSpy = spyOn(AddNewUser, 'postNewRow').and.returnValue(Promise.resolve(newUserData));
 
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
-                    $httpBackend.flush();
-                })
+                        $scope.addUser(newUserData);
 
-                it('updates single user/row data', function () {
+                        setTimeout(function () {
+                            expect(addUserSpy).toHaveBeenCalledWith(newUserData);
+                            expect($scope.newUser).toEqual({});
+                            expect(ctrl.users[ctrl.users.length - 1]).toEqual(newUserData);
+                            done();
+                        });
+                    })
+                });
 
-                    $httpBackend.when("PUT", "http://localhost:3000/users/1").respond(200);
+                describe('$scope.modifyUser is called', function () {
 
-                    $scope.editing = false;
-                    $scope.$apply();
-
-                    var newUpdatedUser = { id: '1' };
-                    EditUser.modifyUserData(newUpdatedUser).then(function (data) {
-                        newUpdatedUser = data;
-                        expect($scope.editing).toBeFalsy();
-                        expect(ctrl.users).toBeDefined();
-                        expect(ctrl.users[newUpdatedUser]).toEqual(newUpdatedUser);
-                    });
-
-                    $httpBackend.flush();
-                })
-            })
-
-            describe("$scope.resetUser is called", function () {
-
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
-                    $httpBackend.flush();
+                    it('starts editing mode', function () {
+                        $scope.modifyUser();
+                        expect($scope.editing).toEqual(true);
+                    })
                 })
 
-                it('canceles user editing', function () {
+                describe('$scope.saveNewData is called', function () {
 
-                    $window = { location: { reload: function () { } } };
-                    spyOn($window.location, 'reload');
-                    expect($window.location.reload).not.toHaveBeenCalled();
-                    //expect($window.location.reload.calls.count()).toEqual(0);
+                    it('updates single user/row data', function (done) {
+                        
+                        var newUpdatedUser = {
+                            id: 1,
+                            name: 'Name1',
+                            age: 1234,
+                            gender: 'Gender1'
+                        };
 
+                        var updtUserSpy = spyOn(EditUser, 'modifyUserData').and.returnValue(Promise.resolve(newUpdatedUser));
+
+                        $scope.saveNewData(newUpdatedUser);
+
+                        setTimeout(function () {
+                            expect(updtUserSpy).toHaveBeenCalledWith(newUpdatedUser);
+                            expect($scope.editing).toEqual(false);
+                            expect(ctrl.users).toBeDefined();
+                            //expect(ctrl.users[newUpdatedUser]).toEqual(newUpdatedUser);
+                            done();
+                        });
+                    })
                 })
-            })
 
-            describe('$scope.deleteUserData is called', function () {
+                describe("$scope.resetUser is called", function () {
 
-                beforeEach(function () {
-                    $httpBackend.when("GET", "http://localhost:3000/users").respond(200, []);
-                    $httpBackend.flush();
+                    // it('canceles user editing and reloads the page', function (done) {
+
+                    //     $window = { location: { reload: function () { console.log('window is reloaded') } } };
+                    //     var winReloadSpy = spyOn($window.location, 'reload').and.callFake(function(){});
+                    //     //$scope.resetUser();
+                    //     expect(winReloadSpy).toHaveBeenCalled();
+                    // })
                 })
 
-                it('deletes single user/row data', function () {
+                describe('$scope.deleteUserData is called', function () {
 
-                    $httpBackend.when("DELETE", "http://localhost:3000/users/1").respond(200);
+                    it('deletes single user/row data', function (done) {
 
-                    var deletedUser = { id: '1' };
-                    DeleteUser.deleteTheRow(deletedUser).then(function (data) {
-                        deletedUser = data;
-                        expect(ctrl.users).toBeDefined();
-                        expect(ctrl.users.splice[deletedUser]).toEqual(deletedUser);
-                    });
+                        var deletedUser = {
+                            name: 'Name',
+                            age: 123,
+                            gender: 'Gender'
+                        };
 
-                    $httpBackend.flush();
+                        var dltUserSpy = spyOn(DeleteUser, 'deleteTheRow').and.returnValue(Promise.resolve(deletedUser));
+
+                        $scope.deleteUserData(deletedUser);
+
+                        setTimeout(function () {
+                            expect(dltUserSpy).toHaveBeenCalledWith(deletedUser);
+                            expect(ctrl.users.splice[deletedUser]).toEqual(undefined);
+                            done();
+                        });
+                    })
                 })
+
             })
 
         })

@@ -1,12 +1,6 @@
 {
   "users": [
     {
-      "name": "Emma",
-      "age": "16",
-      "gender": "female",
-      "id": 4
-    },
-    {
       "name": "Olena",
       "age": "27",
       "gender": "female",
@@ -20,27 +14,33 @@
     },
     {
       "name": "Brie",
-      "age": "30",
+      "age": "29",
       "gender": "female",
       "id": 7
     },
     {
       "name": "Abby",
-      "age": "15",
+      "age": "16",
       "gender": "female",
       "id": 9
     },
     {
       "name": "Marie",
-      "age": "33",
+      "age": "23",
       "gender": "female",
       "id": 10
     },
     {
       "name": "Mark",
-      "age": "22",
+      "age": "17",
       "gender": "male",
       "id": 11
+    },
+    {
+      "name": "Ellie",
+      "age": "18",
+      "gender": "female",
+      "id": 12
     }
   ]
 }

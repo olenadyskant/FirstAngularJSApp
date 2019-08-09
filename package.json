@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"live-server\" \"json-server db.json\"",
+    "start": "concurrently \"live-server --ignore=db.json .\" \"json-server db.json\"",
     "test": "karma start karma.conf.js"
   },
   "repository": {

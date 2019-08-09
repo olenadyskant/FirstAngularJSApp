@@ -3,11 +3,10 @@ define(['app'], function (userInterface) {
     return userInterface
         .component('userContent',
             {
-                templateUrl: '../userContent.html',
+                templateUrl: './components/userContent.html',
                 bindings: {
                     user: '=',
                     save: '&',
-                    cancel: '&',
                     remove: '&'
                 }
             })

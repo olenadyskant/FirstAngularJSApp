@@ -27,6 +27,6 @@
   </div>
   <div class="add-new-user">
     <button type="button" id="add-new-row" class="btn btn-primary mb-2" ng-disabled="newUserForm.$invalid"
-      ng-click="$ctrl.add({$event: newUser})">Add</button>
+      ng-click="$ctrl.add({$event: newUser}) ; newUser = {}">Add</button>
   </div>
 </form>
