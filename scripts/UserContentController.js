@@ -18,7 +18,6 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                 var myDataPromise = AddNewUser.postNewRow(newUser);
                 myDataPromise.then(function (response) {
                     ctrl.users.push(response);
-                    // $scope.newUser = {};
                 },
                     function (response) {
                         $log.warn(response);
@@ -43,10 +42,6 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                             $log.warn(response);
                         });
             };
-
-            // $scope.resetUser = function () {
-            //     $window.location.reload();
-            // }
 
             $scope.deleteUserData = function (user) {
                 var index = ctrl.users.indexOf(user);

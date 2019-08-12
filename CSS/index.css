@@ -1,12 +1,51 @@
-h1,
-h2 {
-  font-family: Lato;
+body {
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#main-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 65px;
+  text-align: center;
+}
+
+thead tr th {
+  background-color:rgba(12, 11, 11, 0.253);
+}
+
+#new-user {
+ position: relative;
+ top: 30px;
+ left: 30px;
+}
+
+#myTable {
+  position: relative;
+  top: 50px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24);
+}
+
+button.modify,
+button.save,
+button.cancel,
+button.delete {
+  width: auto;
+  border-radius: 5px; 
+  background-color: rgba(240, 255, 255, 0.918);
 }
 
 button:hover {
-  background-color: darkslategray;
+  background-color: rgba(127, 218, 198, 0.658);
+  border: 1px solid rgba(207, 183, 183, 0.747);
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   cursor: pointer;
 }
+
+button.delete:hover {
+  background-color: rgba(224, 151, 157, 0.671);
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none;
