@@ -1,4 +1,4 @@
-define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './DeleteUserFactory', '../components/js/userContentComponent', '../components/js/newUserDataComponent'], function (userInterface) {
+define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './DeleteUserFactory', '../components/user_content/userContentComponent', '../components/new_user/newUserDataComponent'], function (userInterface) {
     'use strict';
     return userInterface.controller('UserContentController', ['$scope', '$http', '$log', '$window', 'AddNewUser', 'EditUser', 'DeleteUser',
         function UserContentController($scope, $http, $log, $window, AddNewUser, EditUser, DeleteUser) {
@@ -17,6 +17,7 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
             $scope.addUser = function (newUser) {
                 var myDataPromise = AddNewUser.postNewRow(newUser);
                 myDataPromise.then(function (response) {
+                    
                     ctrl.users.push(response);
                 },
                     function (response) {
@@ -25,15 +26,7 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
 
             };
 
-            $scope.editing = false;
-
-            $scope.modifyUser = function () {
-                $scope.editing = true;
-
-            };
-
             $scope.saveNewData = function (user) {
-                $scope.editing = false;
                 EditUser.modifyUserData(user)
                     .then(function (response) {
                         ctrl.users[user] = response.data;
@@ -42,6 +35,11 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                             $log.warn(response);
                         });
             };
+
+
+            // $scope.cancelEditing = function (user) {
+            //    ctrl.users = {};
+            // }
 
             $scope.deleteUserData = function (user) {
                 var index = ctrl.users.indexOf(user);

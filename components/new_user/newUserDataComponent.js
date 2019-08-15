@@ -3,7 +3,7 @@ define(['app'], function (userInterface) {
     return userInterface
         .component('newUserData',
             {
-                templateUrl: './components/newUserForm.html',
+                templateUrl: './components/new_user/newUserForm.html',
                 bindings: {
                     add: '&'
                 }

@@ -8,6 +8,7 @@
     href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:400,600,700,800&display=swap&subset=latin-ext"
     rel="stylesheet">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link type="text/css" rel="stylesheet" href="/node_modules/angular-flash-alert/dist/angular-flash.min.css" />
   <link rel="stylesheet" href="CSS/reset.css">
   <link rel="stylesheet" href="CSS/index.css">
   <link rel="stylesheet" href="node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
@@ -16,7 +17,7 @@
 
 <body ng-cloak>
 
-  <h2 id="main-header">Complex table</h2>
+  <h2 id="main-header">Users Complex Table</h2>
 
   <div class="main-container" ng-controller="UserContentController as ctrl">
 
@@ -24,8 +25,11 @@
 
     <user-content user="ctrl.users" save="saveNewData($event)" remove="deleteUserData($event)">
     </user-content>
-  </div>
 
+  </div>
+  
+    <img src="/images/users.png" alt="users" style="width:500px;height:400px">
+  
   <script data-main="scripts/config" src="node_modules/requirejs/require.js"></script>
 
 </body>

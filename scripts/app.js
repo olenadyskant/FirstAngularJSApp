@@ -1,12 +1,10 @@
 define(['angular'], function(){
     'use strict'
     return angular.module('userInterface', [])
-    // .config(function($routeProvider, $locationProvider){
-    //     $routeProvider.when('../user/:user.name',
-    //     {
-    //         templateUrl: '../components/userContent.html',
-    //         controller: 'UserContentController'
-    //     })
-    //     $locationProvider.html5Mode(true);
-    // })
+    // .config((FlashProvider) => {
+    //     FlashProvider.setTimeout(5000);
+    //     FlashProvider.setShowClose(true);
+    //     FlashProvider.setOnDismiss(myCallback);
+    // });
+   
 })
