@@ -15,31 +15,39 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                     });
 
             $scope.addUser = function (newUser) {
-                var myDataPromise = AddNewUser.postNewRow(newUser);
-                myDataPromise.then(function (response) {
-                    
-                    ctrl.users.push(response);
-                },
-                    function (response) {
-                        $log.warn(response);
-                    });
-
-            };
-
-            $scope.saveNewData = function (user) {
-                EditUser.modifyUserData(user)
-                    .then(function (response) {
-                        ctrl.users[user] = response.data;
+                if (newUser) {
+                    var myDataPromise = AddNewUser.postNewRow(newUser);
+                    myDataPromise.then(function (response) {
+                        ctrl.users.push(response);
                     },
                         function (response) {
                             $log.warn(response);
                         });
+                } else {
+                    alert("Registration is forbidden! Age limits allowed - '11+'.")
+                    return false
+                }
             };
 
+            $scope.editing = false;
 
-            // $scope.cancelEditing = function (user) {
-            //    ctrl.users = {};
-            // }
+            $scope.saveNewData = function (user) {
+                if (user) {
+                    $scope.editing = false;
+                    EditUser.modifyUserData(user)
+                        .then(function (response) {
+                            ctrl.users[user] = response.data;
+                            
+                        },
+                            function (response) {
+                                $log.warn(response);
+                            });
+                } else {
+                    alert("Registration is forbidden! Age limits allowed - '11+'.")
+                    $scope.editing = true;
+                }
+            };
+
 
             $scope.deleteUserData = function (user) {
                 var index = ctrl.users.indexOf(user);

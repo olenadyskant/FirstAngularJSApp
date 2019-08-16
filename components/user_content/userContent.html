@@ -22,9 +22,16 @@
                     </span>
                 </td>
                 <td align="center">
+                    <span
+                        style="color: maroon; font-size: smaller; background: rgba(221, 201, 243, 0.959); width: auto"
+                        ng-if="user.age >= 100">Is it that high?! Wow, good for you ^_^ Also, be sure to provide an
+                        accurate
+                        number.</span>
                     <span ng-show="edit != true">{{user.age}}</span>
                     <span ng-show="edit">
-                        <input type="number" style="width: 100%;" class="form-control" required ng-model="user.age" />
+                        <input type="number" min="1" style="width: 100%;" class="form-control" required
+                            ng-model="user.age"
+                            ng-style="user.age <= 10 ? {'background-color': 'rgb(248, 175, 175)'} : {'background-color': 'white'}" />
                     </span>
                 </td>
                 <td align="center">
@@ -48,16 +55,16 @@
                     </span>
                 </td>
                 <td align="center">
-                    <button type="button" class="modify"  ng-show="edit != true && editing != true"
+                    <button type="button" class="modify" ng-show="edit != true && editing != true"
                         ng-click="edit=true">Edit</button>
                     <button type="button" ng-show="edit" class="save"
-                        ng-click="edit=false; $ctrl.save({$event:user})">Save</button>
+                        ng-click="user.age > 10 ? edit=false && $ctrl.save({$event:user}) : $ctrl.save({$event:event})">Save</button>
                     <button type="button" ng-show="edit" ng-click="edit=false" class="cancel">Cancel</button>
                 </td>
                 <td>
                     <div align="center">
-                        <button type="button" class="delete" ng-click="$ctrl.remove({$event:user});"><span class="button-text">Remove</span><i
-                                class="fas fa-trash-alt ml-2"></i></button>
+                        <button type="button" class="delete" ng-click="$ctrl.remove({$event:user});"><span
+                                class="button-text">Remove</span><i class="fas fa-trash-alt ml-2"></i></button>
                     </div>
                 </td>
             </form>

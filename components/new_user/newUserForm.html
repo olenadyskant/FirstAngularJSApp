@@ -1,32 +1,38 @@
-    <form id="new-user" class="form-inline" name="newUserForm">
-      <div class="input-group mb-2">
-        <div class="input-group-prepend">
-          <div for="inp-for-name" class="input-group-text">Name</div>
-        </div>
-        <input id="inp-for-name" type="text" ng-model="newUser.name" required placeholder="Username"
-          class="form-control mr-sm-2"></input>
+<div class="from-container">
+  <span style="color: maroon; position: relative; left:50px; font-size: 13px; background: rgba(221, 201, 243, 0.959)"
+    ng-if="newUser.age >= 100">Is it that high?! Wow, good for you ^_^ Also, be sure to provide an accurate
+    number.</span>
+  <form id="new-user" class="form-inline" name="newUserForm">
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div for="inp-for-name" class="input-group-text">Name</div>
       </div>
+      <input id="inp-for-name" type="text" ng-model="newUser.name" required placeholder="Username"
+        class="form-control mr-sm-2"></input>
+    </div>
 
-      <div class="input-group mb-2">
-        <div class="input-group-prepend">
-          <div for="inp-for-age" class="input-group-text">Age</div>
-        </div>
-        <input id="inp-for-age" type="number" class="form-control mr-sm-2" ng-model="newUser.age" required
-          placeholder="18+"></input>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div for="inp-for-age" class="input-group-text">Age</div>
       </div>
+      <input id="inp-for-age" type="number" min="1" class="form-control mr-sm-2"
+        ng-style="newUser.age <= 10 ? {'background-color': 'rgb(248, 175, 175)'} : {'background-color': 'white'}"
+        ng-model="newUser.age" required placeholder="18+"></input>
+    </div>
 
-      <div class="input-group mb-2">
-        <div class="input-group-prepend">
-          <div for="inp-for-gender" class="input-group-text">Gender</div>
-        </div>
-        <select id="inp-for-gender" class="custom-select mr-sm-2" ng-model="newUser.gender" required>
-          <option value="" disabled>Choose ...</option>
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-        </select>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div for="inp-for-gender" class="input-group-text">Gender</div>
       </div>
-      <div class="add-new-user">
-        <button type="button" id="add-new-row" class="btn btn-success mb-2" ng-disabled="newUserForm.$invalid"
-          ng-click="$ctrl.add({$event: newUser}) ; newUser = {}">Add</button>
-      </div>
-    </form>
+      <select id="inp-for-gender" class="custom-select mr-sm-2" ng-model="newUser.gender" required>
+        <option value="" disabled>Choose ...</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+      </select>
+    </div>
+    <div class="add-new-user">
+      <button type="button" id="add-new-row" class="btn btn-success mb-2" ng-disabled="newUserForm.$invalid"
+        ng-click="newUser.age > 10 ? $ctrl.add({$event: newUser}) : $ctrl.add({$event: event}) ; newUser = {}">Add</button>
+    </div>
+  </form>
+</div>
