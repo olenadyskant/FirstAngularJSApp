@@ -1,7 +1,9 @@
 <div class="from-container">
-  <span style="color: maroon; position: relative; left:50px; font-size: 13px; background: rgba(221, 201, 243, 0.959)"
-    ng-if="newUser.age >= 100">Is it that high?! Wow, good for you ^_^ Also, be sure to provide an accurate
-    number.</span>
+  <!-- <span style="color: rgb(212, 127, 0); position: relative; left:100px; font-size: 13px; background: rgba(211, 247, 181, 0.959)"
+    ng-if="newUser.age >= 100">Isn't it a liitle too high? Please be sure to provide an accurate
+    number.</span> -->
+    <span style="color: maroon; position: relative; left:50px; font-size: 16px; background: rgba(221, 201, 243, 0.959)"
+    ng-if="newUser.age <= 10">Warning! Age limits allowed '11+'</span>
   <form id="new-user" class="form-inline" name="newUserForm">
     <div class="input-group mb-2">
       <div class="input-group-prepend">
@@ -15,7 +17,7 @@
       <div class="input-group-prepend">
         <div for="inp-for-age" class="input-group-text">Age</div>
       </div>
-      <input id="inp-for-age" type="number" min="1" class="form-control mr-sm-2"
+      <input id="inp-for-age" type="number" min="1" max="100" class="form-control mr-sm-2"
         ng-style="newUser.age <= 10 ? {'background-color': 'rgb(248, 175, 175)'} : {'background-color': 'white'}"
         ng-model="newUser.age" required placeholder="18+"></input>
     </div>

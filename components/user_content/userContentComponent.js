@@ -7,6 +7,7 @@ define(['app'], function (userInterface) {
                 bindings: {
                     user: '=',
                     save: '&',
+                    modify: '&',
                     cancel: '&',
                     remove: '&'
                 }

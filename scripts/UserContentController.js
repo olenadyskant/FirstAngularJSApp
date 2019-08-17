@@ -24,7 +24,7 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                             $log.warn(response);
                         });
                 } else {
-                    alert("Registration is forbidden! Age limits allowed - '11+'.")
+                    alert("Registration is forbidden! Age limits allowed '11+'.")
                     return false
                 }
             };
@@ -37,17 +37,24 @@ define(['app', './directive', './AddNewUserFactory', './EditUserFactory', './Del
                     EditUser.modifyUserData(user)
                         .then(function (response) {
                             ctrl.users[user] = response.data;
-                            
+
                         },
                             function (response) {
                                 $log.warn(response);
                             });
                 } else {
-                    alert("Registration is forbidden! Age limits allowed - '11+'.")
+                    alert("This action is forbidden! Age limits allowed '11+'.")
                     $scope.editing = true;
                 }
             };
+           
+            $scope.startUserEdit = function(user){
+                $scope.initUser = angular.copy(user);
+            }
 
+            $scope.cancelUserEdit = function (index) {
+                ctrl.users[index] = angular.copy($scope.initUser);
+            }
 
             $scope.deleteUserData = function (user) {
                 var index = ctrl.users.indexOf(user);

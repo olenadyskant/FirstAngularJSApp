@@ -23,7 +23,7 @@
 
     <new-user-data add="addUser($event)"></new-user-data>
 
-    <user-content user="ctrl.users" save="saveNewData($event)" remove="deleteUserData($event)">
+    <user-content user="ctrl.users" save="saveNewData($event)" modify=startUserEdit($event) cancel="cancelUserEdit($event)"remove="deleteUserData($event)">
     </user-content>
 
   </div>
