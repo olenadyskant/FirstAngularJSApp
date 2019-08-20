@@ -53,7 +53,7 @@
                     <button type="button" class="modify" ng-show="edit != true && editing != true"
                         ng-click="$ctrl.modify({$event: user}); edit=true">Edit</button>
                     <button type="button" ng-show="edit" class="save"
-                        ng-click="user.age > 10 ? $ctrl.save({$event:user}) : $ctrl.save({$event:event}) ; edit=false">Save</button>
+                        ng-click="user.age > 10 ? $ctrl.save({$event:user}, edit=false) : $ctrl.save({$event:event})">Save</button>
                     <button type="button" ng-show="edit" ng-click="$ctrl.cancel({$event:$index}); edit=false" class="cancel">Cancel</button>
                 </td>
                 <td>
